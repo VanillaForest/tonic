@@ -22,6 +22,9 @@ clean:
 	rm -rf bin etc lib include share
 	find src -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
 
+chroot:
+	unshare -U -r -p -f -m --propagation slave -u -i assets/ms-namespace-init.sh /bin/sh
+
 # === LINUX ===
 src/linux-$(LINUX_VER).tar.xz:
 	mkdir -p src
