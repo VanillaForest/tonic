@@ -1,0 +1,14 @@
+--- util/subst.c	2017-05-13 17:48:11.712250036 +0000
++++ util/subst.c	2017-05-13 17:48:27.560248952 +0000
+@@ -22,9 +22,9 @@
+ #ifdef HAVE_SYS_TYPES_H
+ #include <sys/types.h>
+ #endif
+-#ifdef HAVE_SYS_STAT_H
++//#ifdef HAVE_SYS_STAT_H
+ #include <sys/stat.h>
+-#endif
++//#endif
+ #include <fcntl.h>
+ #include <time.h>
+ #include <utime.h>
