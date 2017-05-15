@@ -84,7 +84,7 @@ bin/busybox: src/busybox-$(BUSYBOX_VER)/Makefile include/linux/fcntl.h
 	make -C src/busybox-$(BUSYBOX_VER) busybox.links
 	mkdir -p bin
 	cp src/busybox-$(BUSYBOX_VER)/busybox bin/busybox
-	for i in $$(cat src/busybox-$(BUSYBOX_VER)/busybox.links|sed 's|^.*/||'); do ln -s busybox bin/$$i; done
+	for i in $$(cat src/busybox-$(BUSYBOX_VER)/busybox.links|sed 's|^.*/||'); do ln -s busybox bin/$$i; done||true
 
 #= == E2FSPROGS ===
 src/e2fsprogs-$(E2FSPROGS_VER).tar.xz:
@@ -118,7 +118,7 @@ src/syslinux-$(SYSLINUX_VER)/Makefile: src/syslinux-$(SYSLINUX_VER).tar.xz
 	sed '/DIAGDIR/d' -i Makefile ;\
 	sed 's:[a-z0-9]*/[a-z0-9]*\.\(exe\|sys\|com\)::g' -i Makefile;\
 	sed 's:core/isolinux-debug.bin::g' -i Makefile;\
-        sed 's:gpxe/[^ ]*::g' -i Makefile;\
+	sed 's:gpxe/[^ ]*::g' -i Makefile;\
 	sed 's|[a-z]*_c.bin||' -i mbr/Makefile;\
 	sed -i 's,#include <getkey.h>,#include "include/getkey.h",' com32/libutil/keyname.c;\
 	sed -i 's,#include <libutil.h>,#include "include/libutil.h",' com32/libutil/keyname.c;\
