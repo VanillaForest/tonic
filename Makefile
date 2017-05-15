@@ -11,6 +11,7 @@ BUSYBOX_VER=1.26.2
 MUSL_VER=1.1.16
 SYSLINUX_VER=6.03
 E2FSPROGS_VER=1.43.4
+ZLIB_VER=1.2.11
 
 LINUX_CFG=$(CURDIR)/assets/linux.kconfig
 BUSYBOX_CFG=$(CURDIR)/assets/busybox.kconfig
@@ -145,3 +146,16 @@ bin/syslinux: src/syslinux-$(SYSLINUX_VER)/Makefile lib/libuuid.a lib/libc.so
 bin/extlinux: bin/syslinux
 share/syslinux/%.bin: bin/syslinux
 	true
+
+# === ZLIB ===
+src/zlib-$(ZLIB_VER).tar.xz:
+	mkdir -p src
+	cd src && wget http://zlib.net/zlib-$(ZLIB_VER).tar.xz
+
+src/zlib-$(ZLIB_VER)/configure: src/zlib-$(ZLIB_VER).tar.xz
+	cd src && tar -xmf zlib-$(ZLIB_VER).tar.xz
+
+lib/libz.so: src/zlib-$(ZLIB_VER)/configure lib/libc.so
+	cd src/zlib-$(ZLIB_VER) && ./configure --prefix=""
+	make -C src/zlib-$(ZLIB_VER)
+	make -C src/zlib-$(ZLIB_VER) DESTDIR="$(CURDIR)" install
