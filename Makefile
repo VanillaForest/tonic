@@ -40,6 +40,23 @@ include/linux/fcntl.h: src/linux-$(LINUX_VER)/Makefile
 include/linux/%.h: include/linux/fcntl.h
 	true
 
+src/linux-$(LINUX_VER)/vmlinux: src/linux-$(LINUX_VER)/Makefile
+	mkdir -p boot
+	make -C src/linux-$(LINUX_VER) ARCH=$(ARCH) \
+		KCONFIG_ALLCONFIG=$(LINUX_CFG) \
+		allnoconfig
+	make -j4 -C src/linux-$(LINUX_VER) ARCH=$(ARCH) \
+		CROSS_COMPILE="$(CROSS_COMPILE)" \
+		CC="$(CC)" CFLAGS="$(CFLAGS)" \
+		KBUILD_BUILD_USER=root \
+		KBUILD_BUILD_HOST=tonic
+
+# Hint: this is intel-specific
+boot/bzImage: src/linux-$(LINUX_VER)/vmlinux
+	cp src/linux-$(LINUX_VER)/arch/x86/boot/bzImage boot/bzImage
+	cp src/linux-$(LINUX_VER)/System.map boot/System.map
+	cp src/linux-$(LINUX_VER)/.config boot/config
+
 # === MUSL ===
 src/musl-$(MUSL_VER).tar.gz:
 	cd src && wget https://www.musl-libc.org/releases/musl-$(MUSL_VER).tar.gz
