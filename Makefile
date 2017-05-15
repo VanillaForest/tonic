@@ -19,7 +19,7 @@ default:
 	echo $(ARCH)
 
 clean:
-	rm -rf bin etc lib include share
+	rm -rf bin etc lib include share boot proc sys dev
 	find src -mindepth 1 -maxdepth 1 -type d -exec rm -rf {} \;
 
 chroot:
