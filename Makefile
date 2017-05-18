@@ -3,12 +3,13 @@ export CC=$(CROSS_COMPILE)gcc
 export ARCH=$(shell $(CC) -dumpmachine|sed 's/-.*//'|sed 's/i.86/i386/')
 
 export CPPFLAGS=-isystem $(CURDIR)/include
-export CFLAGS=-O3
+export CFLAGS=-g -O2
 export LDFLAGS=-L$(CURDIR)/lib
 
 LINUX_VER=4.9.27
 BUSYBOX_VER=1.26.2
 MUSL_VER=1.1.16
+CONTAINERS_VER=1.6
 SYSLINUX_VER=6.03
 E2FSPROGS_VER=1.43.4
 ZLIB_VER=1.2.11
@@ -87,7 +88,20 @@ bin/busybox: src/busybox-$(BUSYBOX_VER)/Makefile include/linux/fcntl.h
 	cp src/busybox-$(BUSYBOX_VER)/busybox bin/busybox
 	for i in $$(cat src/busybox-$(BUSYBOX_VER)/busybox.links|sed 's|^.*/||'); do ln -s busybox bin/$$i; done||true
 
-#= == E2FSPROGS ===
+# === CONTAINERS ===
+
+src/containers-$(CONTAINERS_VER).tar.gz:
+	cd src && wget https://github.com/arachsys/containers/archive/containers-$(CONTAINERS_VER).tar.gz
+
+src/containers-containers-$(CONTAINERS_VER)/Makefile: src/containers-$(CONTAINERS_VER).tar.gz
+	cd src && tar -xmf containers-$(CONTAINERS_VER).tar.gz
+	sed -i 's/-[og] root//g' src/containers-containers-$(CONTAINERS_VER)/Makefile
+
+bin/contain: src/containers-containers-$(CONTAINERS_VER)/Makefile lib/libc.so
+	make -C src/containers-containers-$(CONTAINERS_VER) CC="$(CC)" CFLAGS="$(CFLAGS) -Wall -Wextra"
+	make -C src/containers-containers-$(CONTAINERS_VER) DESTDIR="$(CURDIR)" install
+
+# === E2FSPROGS ===
 src/e2fsprogs-$(E2FSPROGS_VER).tar.xz:
 	cd src && wget https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v$(E2FSPROGS_VER)/e2fsprogs-$(E2FSPROGS_VER).tar.xz
 
