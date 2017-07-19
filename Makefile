@@ -6,7 +6,7 @@ export CFLAGS=-g -O2
 export LDFLAGS=-L$(CURDIR)/lib -Wl,--dynamic-linker=/lib/libc.so
 export THREADS=4
 
-default: /bin/busybox /bin/tinysshd
+default: bin/busybox bin/tinysshd
 
 clean-src:
 	find src -maxdepth 2 -name Makefile -exec dirname {} \;|while read name; do make -C $$name clean; done
