@@ -1,7 +1,7 @@
 src/busybox/Makefile:
 	mk/tarball busybox https://busybox.net/downloads/busybox-1.27.1.tar.bz2
 
-src/busybox/.config:
+src/busybox/.config: src/busybox/Makefile
 	make -j$(THREADS) -C src/busybox defconfig
 
 bin/busybox: src/busybox/.config src/busybox/Makefile include/linux/fcntl.h lib/libc.so
