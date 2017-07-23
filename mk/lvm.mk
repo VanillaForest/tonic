@@ -26,3 +26,6 @@ src/lvm/Makefile: src/lvm/configure
 bin/lvm: src/lvm/Makefile
 	make -C src/lvm V=1 CFLAGS="$(CPPFLAGS) $(CFLAGS)"
 	make -C src/lvm V=1 CFLAGS="$(CPPFLAGS) $(CFLAGS)" DESTDIR=$(CURDIR) install
+
+lib/libdevmapper.so lvm/liblvm2app.so lib/liblvm2cmd.so: bin/lvm
+	# nop
