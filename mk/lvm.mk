@@ -4,7 +4,7 @@ src/lvm/configure:
 	mk/tarball lvm https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.$(LVM).tgz
 	for p in assets/lvm2-*.patch; do (cd src/lvm; patch -p1 < "$(CURDIR)/$$p") done
 
-src/lvm/Makefile: src/lvm/configure
+src/lvm/Makefile: src/lvm/configure lib/libc.so include/linux/fcntl.h
 	cd src/lvm && \
 	ac_cv_func_malloc_0_nonnull=yes \
 	ac_cv_func_realloc_0_nonnull=yes \
@@ -28,4 +28,4 @@ bin/lvm: src/lvm/Makefile
 	make -C src/lvm V=1 CFLAGS="$(CPPFLAGS) $(CFLAGS)" DESTDIR=$(CURDIR) install
 
 lib/libdevmapper.so lvm/liblvm2app.so lib/liblvm2cmd.so: bin/lvm
-	# nop
+	true
