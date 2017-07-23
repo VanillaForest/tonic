@@ -2,8 +2,17 @@ export
 include config.mk
 
 ARCH=$(shell $(CC) -dumpmachine|sed 's/-.*//'|sed 's/i.86/i386/')
+
+# This is where the compiler looks for include files
 CPPFLAGS += -isystem $(CURDIR)/include
-LDFLAGS += -L$(CURDIR)/lib -Wl,--dynamic-linker=/lib/libc.so
+
+# This is where the linker looks for libraries
+# Because of some dumb build systems you need it twice
+LDFLAGS += -L$(CURDIR)/lib
+LDFLAGS += -Wl,-rpath-link=$(CURDIR)/lib
+
+# This is the libc path encoded in each binary
+LDFLAGS += -Wl,--dynamic-linker=/lib/libc.so
 
 default: bin/busybox bin/tinysshd
 
