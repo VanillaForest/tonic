@@ -10,3 +10,5 @@ bin/busybox: src/busybox/.config src/busybox/Makefile include/linux/fcntl.h lib/
 	make -j$(THREADS) -C src/busybox V=1 CC="$(CC)" CFLAGS="$(CPPFLAGS) $(CFLAGS)" LDFLAGS="$(LDFLAGS)" DESTDIR="$(CURDIR)" all busybox.links
 	install -D src/busybox/busybox bin/busybox
 	for applet in `cat src/busybox/busybox.links|sed 's|^.*/||'`; do ln -s busybox bin/$$applet; done
+	mkdir -p etc
+	for sh in ash hush sh; do grep -q /bin/$$sh etc/shells || echo /bin/$$sh >> etc/shells; done
