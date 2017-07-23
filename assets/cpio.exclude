@@ -1,0 +1,13 @@
+^\./boot
+^\./src
+^\./assets
+^\./mk
+^\./\.
+\.h$
+\.a$
+\.mk$
+^\./include
+^\./lib/pkgconfig
+^\./lib/.*\.o$
+/\.\.install\.cmd$
+/\.install$
