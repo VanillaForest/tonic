@@ -1,3 +1,4 @@
+boot
 bin
 etc
 include
@@ -8,3 +9,4 @@ dev
 proc
 mnt
 tmp
+config.mk
