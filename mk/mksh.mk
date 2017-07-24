@@ -1,7 +1,7 @@
 MKSH=R55
 
 src/mksh/Build.sh:
-	mk/tarball mksh https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-$(MKSH).tgz
+	assets/tarball.sh mksh https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-$(MKSH).tgz
 
 bin/mksh: src/mksh/Build.sh lib/libc.so
 	cd src/mksh && sh ./Build.sh -r

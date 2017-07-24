@@ -1,7 +1,7 @@
 E2FSPROGS=1.43.4
 
 src/e2fsprogs/configure:
-	mk/tarball e2fsprogs https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v$(E2FSPROGS)/e2fsprogs-$(E2FSPROGS).tar.xz
+	assets/tarball.sh e2fsprogs https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v$(E2FSPROGS)/e2fsprogs-$(E2FSPROGS).tar.xz
 	cd src/e2fsprogs && for i in misc/fsck.c misc/mke2fs.c e2fsck/unix.c;do sed -i 's@sbin@bin@g' $$i;done
 	cd src/e2fsprogs && patch -t -p0 < $(CURDIR)/assets/e2fsprogs-missing-sys-stat.patch
 

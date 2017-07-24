@@ -1,7 +1,7 @@
 NETTLE=3.3
 
 src/nettle/configure:
-	mk/tarball nettle http://ftp.gnu.org/gnu/nettle/nettle-$(NETTLE).tar.gz
+	assets/tarball.sh nettle http://ftp.gnu.org/gnu/nettle/nettle-$(NETTLE).tar.gz
 
 src/nettle/Makefile: src/nettle/configure lib/libc.so
 	cd src/nettle && ./configure \

@@ -2,7 +2,7 @@ LINUX_VER=4.11.11
 LINUX_KPATH=arch/x86/boot/bzImage
 
 src/linux/Makefile:
-	mk/tarball linux https://www.kernel.org/pub/linux/kernel/v4.x/linux-$(LINUX_VER).tar.xz
+	assets/tarball.sh linux https://www.kernel.org/pub/linux/kernel/v4.x/linux-$(LINUX_VER).tar.xz
 
 include/linux/fcntl.h: src/linux/Makefile
 	mkdir -p include

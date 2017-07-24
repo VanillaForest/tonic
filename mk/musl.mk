@@ -1,7 +1,7 @@
 MUSL_VER=1.1.16
 
 src/musl/Makefile:
-	mk/tarball musl https://www.musl-libc.org/releases/musl-$(MUSL_VER).tar.gz
+	assets/tarball.sh musl https://www.musl-libc.org/releases/musl-$(MUSL_VER).tar.gz
 
 src/musl/config.mak: src/musl/Makefile
 	cd src/musl && ./configure \

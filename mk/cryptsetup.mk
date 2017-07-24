@@ -1,7 +1,7 @@
 CRYPTSETUP=1.7.4
 
 src/cryptsetup/configure:
-	mk/tarball cryptsetup https://www.kernel.org/pub/linux/utils/cryptsetup/v$(shell echo "$(CRYPTSETUP)"|cut '-d.' -f1-2)/cryptsetup-$(CRYPTSETUP).tar.xz
+	assets/tarball.sh cryptsetup https://www.kernel.org/pub/linux/utils/cryptsetup/v$(shell echo "$(CRYPTSETUP)"|cut '-d.' -f1-2)/cryptsetup-$(CRYPTSETUP).tar.xz
 
 src/cryptsetup/Makefile: src/cryptsetup/configure lib/libdevmapper.so lib/libpopt.so lib/libnettle.so include/linux/fcntl.h lib/libuuid.a
 	cd src/cryptsetup && ./configure \

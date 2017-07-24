@@ -1,7 +1,7 @@
 POPT=1.16
 
 src/popt/configure:
-	mk/tarball popt http://rpm5.org/files/popt/popt-$(POPT).tar.gz
+	assets/tarball.sh popt http://rpm5.org/files/popt/popt-$(POPT).tar.gz
 
 src/popt/Makefile: src/popt/configure lib/libc.so
 	cd src/popt && ./configure \

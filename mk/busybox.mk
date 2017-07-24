@@ -1,7 +1,7 @@
 BUSYBOX=1.27.1
 
 src/busybox/Makefile:
-	mk/tarball busybox https://busybox.net/downloads/busybox-$(BUSYBOX).tar.bz2
+	assets/tarball.sh busybox https://busybox.net/downloads/busybox-$(BUSYBOX).tar.bz2
 
 src/busybox/.config: src/busybox/Makefile
 	make -j$(THREADS) -C src/busybox defconfig
