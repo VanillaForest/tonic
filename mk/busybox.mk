@@ -11,4 +11,4 @@ bin/busybox: src/busybox/.config src/busybox/Makefile include/linux/fcntl.h lib/
 	install -D src/busybox/busybox bin/busybox
 	for applet in `cat src/busybox/busybox.links|sed 's|^.*/||'`; do ln -s busybox bin/$$applet; done
 	mkdir -p etc
-	for sh in ash hush sh; do grep -q /bin/$$sh etc/shells || echo /bin/$$sh >> etc/shells; done
+	for sh in ash hush sh; do grep -qx /bin/$$sh etc/shells || echo /bin/$$sh >> etc/shells; done
