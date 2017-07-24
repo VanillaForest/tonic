@@ -1,5 +1,5 @@
 src/tinyssh/Makefile:
-	cd src && git clone https://github.com/janmojzis/tinyssh.git
+	assets/tarball.sh tinyssh https://mojzis.com/software/tinyssh/tinyssh-20161101.tar.gz
 
 bin/tinysshd: src/tinyssh/Makefile lib/libc.so include/linux/fcntl.h
 	echo "/bin" > src/tinyssh/conf-bin
