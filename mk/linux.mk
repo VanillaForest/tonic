@@ -1,21 +1,25 @@
 LINUX_VER=4.11.11
 LINUX_KPATH=arch/x86/boot/bzImage
+LINUX_ARCH=$(shell $(CC) -dumpmachine|sed 's/-.*//'|sed 's/i.86/i386/')
 
 src/linux/Makefile:
 	assets/tarball.sh linux https://www.kernel.org/pub/linux/kernel/v4.x/linux-$(LINUX_VER).tar.xz
 
 include/linux/fcntl.h: src/linux/Makefile
 	mkdir -p include
-	make -j$(THREADS) -C src/linux ARCH="$(ARCH)" INSTALL_HDR_PATH="$(CURDIR)" headers_install
+	make -j$(THREADS) -C src/linux \
+		ARCH="$(LINUX_ARCH)" \
+		INSTALL_HDR_PATH="$(CURDIR)" \
+		headers_install
 
 include/linux/%.h: include/linux/fcntl.h
 	true
 
 src/linux/.config:
-	make -j$(THREADS) -C src/linux ARCH=$(ARCH) defconfig
+	make -j$(THREADS) -C src/linux ARCH=$(LINUX_ARCH) defconfig
 
 src/linux/vmlinux: src/linux/.config src/linux/Makefile
-	make -j$(THREADS) -C src/linux ARCH=$(ARCH) \
+	make -j$(THREADS) -C src/linux ARCH=$(LINUX_ARCH) \
 	        CROSS_COMPILE="$(CROSS_COMPILE)" \
 	        CC="$(CC)" CFLAGS="$(CFLAGS)" \
 	        KBUILD_BUILD_USER=root \

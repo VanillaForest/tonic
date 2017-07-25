@@ -1,8 +1,6 @@
 export
 include config.mk
 
-ARCH=$(shell $(CC) -dumpmachine|sed 's/-.*//'|sed 's/i.86/i386/')
-
 # This is where the compiler looks for include files
 CPPFLAGS += -isystem $(CURDIR)/include
 
