@@ -7,7 +7,13 @@ src/busybox/.config: src/busybox/Makefile
 	make -j$(THREADS) -C src/busybox defconfig
 
 bin/busybox: src/busybox/.config src/busybox/Makefile include/linux/fcntl.h lib/libc.so
-	make -j$(THREADS) -C src/busybox V=1 CC="$(CC)" CFLAGS="$(CPPFLAGS) $(CFLAGS)" LDFLAGS="$(LDFLAGS)" DESTDIR="$(CURDIR)" all busybox.links
+	make -j$(THREADS) -C src/busybox V=1 \
+		CC="$(CC)" \
+		CONFIG_CROSS_COMPILER_PREFIX="$(CROSS_COMPILE)" \
+		CONFIG_SYSROOT="$(CURDIR)" \
+		CONFIG_EXTRA_CFLAGS="$(CFLAGS)" \
+		CONFIG_EXTRA_LDFLAGS="$(LDFLAGS)" \
+		all busybox.links
 	install -D src/busybox/busybox bin/busybox
 	for applet in `cat src/busybox/busybox.links|sed 's|^.*/||'`; do ln -s busybox bin/$$applet; done
 	mkdir -p etc
