@@ -3,7 +3,7 @@ NETTLE=3.3
 src/nettle/configure:
 	assets/tarball.sh nettle http://ftp.gnu.org/gnu/nettle/nettle-$(NETTLE).tar.gz
 
-src/nettle/Makefile: src/nettle/configure lib/libc.so
+src/nettle/Makefile: config.mk src/nettle/configure lib/libc.so
 	cd src/nettle && ./configure \
 		--prefix="" \
 		--host=$(shell $(CC) -dumpmachine) \

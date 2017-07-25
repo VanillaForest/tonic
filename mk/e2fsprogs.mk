@@ -5,7 +5,7 @@ src/e2fsprogs/configure:
 	cd src/e2fsprogs && for i in misc/fsck.c misc/mke2fs.c e2fsck/unix.c;do sed -i 's@sbin@bin@g' $$i;done
 	cd src/e2fsprogs && patch -t -p0 < $(CURDIR)/assets/e2fsprogs-missing-sys-stat.patch
 
-src/e2fsprogs/Makefile: src/e2fsprogs/configure lib/libc.so include/linux/fcntl.h
+src/e2fsprogs/Makefile: config.mk src/e2fsprogs/configure lib/libc.so include/linux/fcntl.h
 	cd src/e2fsprogs && ./configure \
 		--prefix="" \
 		--host=$(shell $(CC) -dumpmachine) \
