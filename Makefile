@@ -14,7 +14,7 @@ LDFLAGS += -Wl,-rpath-link=$(CURDIR)/lib
 # This is the libc path encoded in each binary
 LDFLAGS += -Wl,--dynamic-linker=/lib/libc.so
 
-default: bin/busybox bin/tinysshd
+default: bin/busybox bin/mksh
 
 showconf:
 	@echo CC=$(CC)
