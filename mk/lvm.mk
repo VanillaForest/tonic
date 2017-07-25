@@ -8,7 +8,7 @@ src/lvm/Makefile: config.mk src/lvm/configure lib/libc.so include/linux/fcntl.h
 	cd src/lvm && \
 	ac_cv_func_malloc_0_nonnull=yes \
 	ac_cv_func_realloc_0_nonnull=yes \
-	CFLAGS="$(CPPFLAGS) $(CFLAGS)" \
+	CFLAGS="$(CPPFLAGS) $(CFLAGS) -fPIC" \
 	./configure \
 		--host=$(shell $(CC) -dumpmachine) \
 		--prefix= \
@@ -24,8 +24,8 @@ src/lvm/Makefile: config.mk src/lvm/configure lib/libc.so include/linux/fcntl.h
 		--enable-cmdlib
 
 bin/lvm: src/lvm/Makefile
-	make -C src/lvm V=1 CFLAGS="$(CPPFLAGS) $(CFLAGS)"
-	make -C src/lvm V=1 CFLAGS="$(CPPFLAGS) $(CFLAGS)" DESTDIR=$(CURDIR) install
+	make -C src/lvm V=1 CFLAGS="$(CPPFLAGS) $(CFLAGS) -fPIC"
+	make -C src/lvm V=1 CFLAGS="$(CPPFLAGS) $(CFLAGS) -fPIC" DESTDIR=$(CURDIR) install
 
 lib/libdevmapper.so lvm/liblvm2app.so lib/liblvm2cmd.so: bin/lvm
 	true
