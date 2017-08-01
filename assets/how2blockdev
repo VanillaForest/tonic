@@ -1,0 +1,54 @@
+#!/bin/sh
+# This script takes one block device path as argument and outputs commands.
+# an initramfs could use to make this device accessible.
+#
+# This script is intended to give a quick sample script for the current host system.
+# For productive uses, you should consider just writing your own script.
+
+dm_name() {
+	name=$(echo "$1"|sed 's|^/.*/||')
+	case "$1" in
+		/dev/dm-*)
+			echo "/dev/mapper/$(cat "/sys/block/$name/dm/name")"
+			;;
+		#/dev/[sh]d*)
+		#	blkid "$1"|sed 's/^[^ ]*: //'|tr ' ' '\n'|head -n 1
+		#	;;
+		*)
+			echo "$1"
+			;;
+	esac
+}
+
+finddevs() (
+	name=$(echo "$1"|sed 's|^/.*/||')
+	case "$1" in
+		/dev/dm-*)
+			finddevs "$(dm_name "$1")"
+			;;
+		/dev/mapper/*)
+			for i in $(cd /sys/block && echo dm*); do
+				if [ "$(cat "/sys/block/$i/dm/name")" = "$name" ]; then
+					deps=""
+					for j in $(cd "/sys/block/$i/slaves" && echo -- *); do
+						j="$(dm_name "/dev/$j")"
+						deps="$j"
+						finddevs "$j"
+					done
+					type=$( <"/sys/block/$i/dm/uuid" cut '-d-' -f1)
+					case "$type" in
+						LVM)
+							echo lvm vgscan
+							echo lvm vgchange -a y
+							;;
+						CRYPT)
+							echo cryptsetup luksOpen "$deps" "$name"
+							;;
+					esac
+				fi
+			done
+			;;
+	esac
+)
+
+finddevs "$1"

@@ -1,0 +1,43 @@
+#!/bin/sh
+# This script generates mount instructions from an fstab on stdin.
+# The mount instructions will create the system mounts as necessary to
+# perform a switch_root. Non-necessary mounts should be mounted after
+# the switch_root by the target system itself.
+
+clean_fstab="$(mktemp)"
+
+sed "/^$/d;/^#/d" > "$clean_fstab"
+
+# recursively mount all dependencies for /
+findmounts() (
+	case "$1" in
+		/dev*|/proc*|/sys*)
+			# Presence always assumed
+			;;
+		UUID=*|LABEL=*)
+			findmounts "/dev"
+			;;
+		/*)
+			# This finds the line which mounts the object (exact)
+			line="$(grep "^\S*\s*\s$1\s" < "$clean_fstab")"
+			if [ "$line" ]; then
+				dev="$(echo "$line"|awk '{print($1)}')"
+				findmounts "$dev"
+				if [ "$dev" = "overlay" ]; then
+					for i in $(echo "$line"|awk '{print($4)}'|tr ',' '\n'|cut '-d=' -f2|grep '^/'); do
+						findmounts "$i"
+					done
+				fi
+				echo "$line"
+			else # If no match, look for the parent instead
+				parent="$(dirname "$1")"
+				[ "$parent" != "/" ] && findmounts "$parent" || echo "WARN: Assuming presence of $1" >&2
+			fi
+			;;
+	esac
+)
+
+# Sorted fstab
+findmounts / | awk '!a[$0]++' | awk '{if ($2=="/") prefix="/root"}{printf("mount -t %s -o %s %s %s%s\n",$3,$4,$1,prefix,$2)}'
+
+rm "$clean_fstab"
