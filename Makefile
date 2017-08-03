@@ -1,3 +1,5 @@
+HOSTCC=gcc
+
 export
 include config.mk
 
