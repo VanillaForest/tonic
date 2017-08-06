@@ -18,4 +18,6 @@ ln -sfn /proc/self/fd/0 dev/stdin
 ln -sfn /proc/self/fd/1 dev/stdout
 ln -sfn /proc/self/fd/2 dev/stderr
 
+mount --bind . /
+
 exec chroot . /bin/env -i "$@"
