@@ -9,7 +9,7 @@ mkdir -p dev/pts
 mount -t devpts devpts dev/pts
 ln -sfn pts/ptmx dev/ptmx
 
-for i in random urandom null zero; do
+for i in random urandom null zero tty; do
 	touch dev/$i
 	mount --bind /dev/$i dev/$i
 done
