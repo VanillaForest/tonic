@@ -29,5 +29,5 @@ bin/mke2fs: src/e2fsprogs/Makefile
 	make -C src/e2fsprogs DESTDIR="$(CURDIR)" install
 	make -C src/e2fsprogs DESTDIR="$(CURDIR)" install-libs
 
-lib/libuuid.a: bin/mke2fs
+lib/libuuid.a include/uuid/uuid.h: bin/mke2fs
 	true
