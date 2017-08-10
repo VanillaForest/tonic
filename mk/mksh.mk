@@ -1,4 +1,4 @@
-MKSH=R55
+MKSH=R56
 
 src/mksh/Build.sh:
 	assets/tarball.sh mksh https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-$(MKSH).tgz
