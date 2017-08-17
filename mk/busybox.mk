@@ -15,6 +15,7 @@ bin/busybox: src/busybox/.config src/busybox/Makefile include/linux/fcntl.h lib/
 		CONFIG_EXTRA_LDFLAGS="$(LDFLAGS)" \
 		all busybox.links
 	install -D src/busybox/busybox bin/busybox
+	install -D src/busybox/docs/busybox.1 share/man/man1/busybox.1
 	for applet in `cat src/busybox/busybox.links|sed 's|^.*/||'`; do ln -s busybox bin/$$applet; done
 	mkdir -p etc
 	for sh in ash hush sh; do grep -qx /bin/$$sh etc/shells || echo /bin/$$sh >> etc/shells; done
