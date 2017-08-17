@@ -8,9 +8,8 @@ src/libz/Makefile: src/libz/configure lib/libc.so config.mk
 		--prefix="" \
 		--host=$(shell $(CC) -dumpmachine)
 
-libz: src/libz/Makefile
+lib/libz.so: src/libz/Makefile
 	make -C src/libz -j$(THREADS)
 	make -C src/libz V=1 DESTDIR="$(CURDIR)" install
 
-include/zlib.h \
-lib/libz.so: libz
+include/zlib.h: lib/libz.so
