@@ -7,10 +7,10 @@ src/libressl/Makefile: src/libressl/configure lib/libc.so include/linux/fcntl.h
 		--host=$(shell $(CC) -dumpmachine) \
 		--with-sysroot="$(CURDIR)"
 
-bin/openssh: src/libressl/Makefile
+bin/openssl: src/libressl/Makefile
 	make -C src/libressl -j$(THREADS) V=1
 	make -C src/libressl DESTDIR="$(CURDIR)" install
 
 lib/libcrypto.a \
 lib/libssl.a \
-lib/libtls.a: bin/openssh
+lib/libtls.a: bin/openssl
