@@ -1,7 +1,7 @@
 src/curl/configure:
 	assets/tarball.sh curl https://curl.haxx.se/download/curl-7.55.1.tar.xz
 
-src/curl/Makefile: src/curl/configure
+src/curl/Makefile: src/curl/configure lib/libcrypto.a lib/libz.so
 	LIBS="-lssl -lcrypto -lz" \
 	cd src/curl && ./configure \
 		--host=$(shell $(CC) -dumpmachine) \
@@ -14,7 +14,7 @@ src/curl/Makefile: src/curl/configure
 		--with-random=/dev/urandom
 	sed -i -e '/SUBDIRS/s:scripts::' src/curl/Makefile
 
-bin/curl: src/curl/Makefile lib/libcrypto.a lib/libz.so
+bin/curl: src/curl/Makefile
 	make -C src/curl -j$(THREADS) V=1
 	make -C src/curl DESTDIR="$(CURDIR)" install
 
