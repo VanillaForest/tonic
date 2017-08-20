@@ -31,5 +31,8 @@ share/kbd/%.map: src/kbd/loadkeys
 	mkdir -p $(CURDIR)/share/kbd
 	k=$$(basename $@) ; \
 	k=$${k%.map} ; \
-	src/kbd/loadkeys -b -q $$(find src/kbd/data/keymaps/i386 -name $$k.map) > $(CURDIR)/share/kbd/$$k.kmap
+	src/kbd/loadkeys -b -q $$(find src/kbd/data/keymaps/i386 -name $$k.map) > $(CURDIR)/share/kbd/$$k.map
 
+ifneq ($(KBDMAP),)
+default: share/kbd/$(KBDMAP).map
+endif
