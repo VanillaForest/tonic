@@ -1,5 +1,7 @@
 NETTLE=3.3
 
+sources: src/nettle/configure
+
 src/nettle/configure:
 	assets/tarball.sh nettle http://ftp.gnu.org/gnu/nettle/nettle-$(NETTLE).tar.gz
 

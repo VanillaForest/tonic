@@ -1,3 +1,5 @@
+sources: src/curl/configure
+
 src/curl/configure:
 	assets/tarball.sh curl https://curl.haxx.se/download/curl-7.55.1.tar.xz
 

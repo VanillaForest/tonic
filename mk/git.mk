@@ -1,3 +1,5 @@
+sources: src/git/Makefile
+
 src/git/Makefile:
 	assets/tarball.sh git https://www.kernel.org/pub/software/scm/git/git-2.9.5.tar.xz
 

@@ -1,6 +1,8 @@
 MKSH=R56
 ETC_SHELLS += /bin/mksh
 
+sources: src/mksh/Build.sh
+
 src/mksh/Build.sh:
 	assets/tarball.sh mksh https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-$(MKSH).tgz
 

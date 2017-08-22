@@ -1,5 +1,7 @@
 LVM=2.02.168
 
+sources: src/lvm/configure
+
 src/lvm/configure:
 	assets/tarball.sh lvm https://mirrors.kernel.org/sourceware/lvm2/releases/LVM2.$(LVM).tgz
 	for p in assets/lvm2-*.patch; do (cd src/lvm; patch -p1 < "$(CURDIR)/$$p") done

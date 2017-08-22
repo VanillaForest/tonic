@@ -1,5 +1,7 @@
 LIBZ_VER=1.2.8.2015.12.26
 
+sources: src/libz/configure
+
 src/libz/configure:
 	assets/tarball.sh libz https://sortix.org/libz/release/libz-$(LIBZ_VER).tar.gz
 

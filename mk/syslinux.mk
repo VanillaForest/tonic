@@ -1,3 +1,5 @@
+sources: src/syslinux/Makefile
+
 src/syslinux/Makefile:
 	assets/tarball.sh syslinux https://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-6.03.tar.xz
 	cd src/syslinux && $(CURDIR)/assets/patch-syslinux.sh

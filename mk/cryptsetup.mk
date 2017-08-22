@@ -1,5 +1,7 @@
 CRYPTSETUP=1.7.4
 
+sources: src/cryptsetup/configure
+
 src/cryptsetup/configure:
 	assets/tarball.sh cryptsetup https://www.kernel.org/pub/linux/utils/cryptsetup/v$(shell echo "$(CRYPTSETUP)"|cut '-d.' -f1-2)/cryptsetup-$(CRYPTSETUP).tar.xz
 

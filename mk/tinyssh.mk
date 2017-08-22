@@ -1,3 +1,5 @@
+sources: src/tinyssh/Makefile
+
 src/tinyssh/Makefile:
 	assets/tarball.sh tinyssh https://mojzis.com/software/tinyssh/tinyssh-20161101.tar.gz
 

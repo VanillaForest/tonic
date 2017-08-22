@@ -1,5 +1,7 @@
 KBD_VER=2.0.4
 
+sources: src/kbd/configure
+
 src/kbd/configure:
 	assets/tarball.sh kbd http://cdn.kernel.org/pub/linux/utils/kbd/kbd-$(KBD_VER).tar.xz
 	sed -i 's/progname/prgname/g' src/kbd/src/loadkeys.c

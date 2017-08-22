@@ -1,3 +1,5 @@
+sources: src/libressl/configure
+
 src/libressl/configure:
 	assets/tarball.sh libressl https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-2.6.0.tar.gz
 

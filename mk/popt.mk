@@ -1,5 +1,7 @@
 POPT=1.16
 
+sources: src/popt/configure
+
 src/popt/configure:
 	assets/tarball.sh popt http://rpm5.org/files/popt/popt-$(POPT).tar.gz
 

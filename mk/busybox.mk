@@ -1,6 +1,8 @@
 BUSYBOX=1.27.1
 ETC_SHELLS += /bin/ash /bin/hush /bin/sh
 
+sources: src/busybox/Makefile
+
 src/busybox/Makefile:
 	assets/tarball.sh busybox https://busybox.net/downloads/busybox-$(BUSYBOX).tar.bz2
 

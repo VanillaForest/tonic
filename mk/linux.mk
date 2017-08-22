@@ -2,6 +2,8 @@ LINUX_VER=4.11.11
 LINUX_KPATH=arch/x86/boot/bzImage
 LINUX_ARCH=$(shell $(CC) -dumpmachine|sed 's/-.*//'|sed 's/i.86/i386/')
 
+sources: src/linux/Makefile
+
 src/linux/Makefile:
 	assets/tarball.sh linux https://www.kernel.org/pub/linux/kernel/v4.x/linux-$(LINUX_VER).tar.xz
 

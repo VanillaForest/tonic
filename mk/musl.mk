@@ -1,5 +1,7 @@
 MUSL_VER=1.1.16
 
+sources: src/musl/Makefile
+
 src/musl/Makefile:
 	assets/tarball.sh musl https://www.musl-libc.org/releases/musl-$(MUSL_VER).tar.gz
 
