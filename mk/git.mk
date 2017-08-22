@@ -17,4 +17,5 @@ bin/git: src/git/Makefile lib/libz.so lib/libcurl.a
 		LDFLAGS="$(LDFLAGS)" \
 		NO_REGEX=NeedsStartEnd \
 		DESTDIR="$(CURDIR)" \
+		NO_INSTALL_HARDLINKS=YesPlease \
 		all install
