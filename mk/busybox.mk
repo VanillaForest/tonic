@@ -1,4 +1,5 @@
 BUSYBOX=1.27.1
+ETC_SHELLS += /bin/ash /bin/hush /bin/sh
 
 src/busybox/Makefile:
 	assets/tarball.sh busybox https://busybox.net/downloads/busybox-$(BUSYBOX).tar.bz2
@@ -17,5 +18,3 @@ bin/busybox: src/busybox/.config src/busybox/Makefile include/linux/fcntl.h lib/
 	install -D src/busybox/busybox bin/busybox
 	install -D src/busybox/docs/busybox.1 share/man/man1/busybox.1
 	for applet in `cat src/busybox/busybox.links|sed 's|^.*/||'`; do ln -s busybox bin/$$applet || true; done
-	mkdir -p etc
-	for sh in ash hush sh; do grep -qx /bin/$$sh etc/shells || echo /bin/$$sh >> etc/shells; done
