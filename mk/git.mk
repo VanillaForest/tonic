@@ -6,7 +6,7 @@ bin/git: src/git/Makefile lib/libz.so lib/libcurl.a
 		CURL_LIBCURL="$(CURDIR)/lib/libcurl.a $(CURDIR)/lib/libssl.a $(CURDIR)/lib/libcrypto.a" \
 		CC="$(CC)" \
 		HOSTCC="$(HOSTCC)" \
-		prefix="" \
+		prefix="/" \
 		gitexecdir=/lib/git-core \
 		NO_TCLTK=1 \
 		NO_PYTHON=1 \
