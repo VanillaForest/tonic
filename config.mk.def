@@ -1,0 +1,19 @@
+# name of your compiler
+# this MUST be a musl one (musl-gcc wrapper allowed)
+CC=x86_64-linux-musl-gcc
+
+# cross prefix, like *objdump
+CROSS_COMPILE=x86_64-linux-musl-
+
+# arguments you want to give in when compiling
+# some hardening and -march goes here
+CFLAGS=-Os -s
+
+# sometimes i put -static here
+LDFLAGS=
+
+# number of threads for parallel builds
+# this applies to a per-package basis
+# while it quickens up each single build,
+#  the build themselves are still sequentially
+THREADS=4
