@@ -1,8 +1,9 @@
-# name of your compiler
-# this MUST be a musl one (musl-gcc wrapper allowed)
+# if you are on a glibc system, but same arch, you can install
+# musl to some directory prefix and use its musl-gcc wrapper here
+# this needs to be a musl compiler!
 CC=x86_64-linux-musl-gcc
 
-# cross prefix, like *objdump
+# cross prefix. empty for musl-gcc or native gcc.
 CROSS_COMPILE=x86_64-linux-musl-
 
 # arguments you want to give in when compiling
