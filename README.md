@@ -13,7 +13,7 @@ The musl libc itself can be configured to install an musl-gcc wrapper script, wh
 Copy `config.mk.def` over to `config.mk` and edit it to match your toolchain settings.
 The directives follow the usual compilation logic:
 
-- The `CC` setting names your gcc name. Typical values would be `gcc` for native (musl-host) compiling, `musl-gcc` for native architecture but cross-libc, and `x86_64-linux-musl-gcc` for cross-compiling
+- The `CC` setting names your gcc name. Typical values would be `gcc` for native (musl-host) compiling, `musl-gcc` for native architecture but cross-libc, and `$ARCH-linux-musl-gcc` for cross-compiling
 - `CROSS_COMPILE` is the prefix for buildchain tools like objdump. It is usually empty for native arch builds and end with an hyphen for cross-compiling
 - `CFLAGS` contains your optimisation levels and whether to include symbol tables (for gdb debugging) into your binaries
 - `LDFLAGS` contain the linker flags as given to `$CC`. Since the required flags are already added by the Makefile, you can leave this empty if you do not want to build statically
