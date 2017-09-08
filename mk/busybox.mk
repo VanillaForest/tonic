@@ -1,4 +1,4 @@
-BUSYBOX=1.27.1
+BUSYBOX=1.27.2
 ETC_SHELLS += /bin/ash /bin/hush /bin/sh
 
 sources: src/busybox/Makefile
