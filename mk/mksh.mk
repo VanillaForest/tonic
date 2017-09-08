@@ -1,4 +1,4 @@
-MKSH=R56
+MKSH=R56b
 ETC_SHELLS += /bin/mksh
 
 sources: src/mksh/Build.sh
