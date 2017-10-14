@@ -32,6 +32,8 @@ src/linux/vmlinux: src/linux/.config src/linux/Makefile
 	        KBUILD_BUILD_USER=root \
 	        KBUILD_BUILD_HOST=tonic
 
+src/linux/$(LINUX_KPATH): src/linux/vmlinux
+
 boot/vmlinux: src/linux/$(LINUX_KPATH)
 	mkdir -p boot
 	cp src/linux/$(LINUX_KPATH) boot/vmlinux
