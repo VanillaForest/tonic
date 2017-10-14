@@ -1,4 +1,4 @@
-boot/tonic.cpio.xz:
+boot/tonic.cpio.xz: init bin
 	mkdir -p boot
 	find . | \
 		grep -vf assets/cpio.exclude | \
