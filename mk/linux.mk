@@ -17,8 +17,13 @@ include/linux/fcntl.h: src/linux/Makefile
 include/linux/%.h: include/linux/fcntl.h
 	true
 
-src/linux/.config:
+src/linux/.config: src/linux/Makefile
+ifdef LINUX_KCONFIG
+	make -j$(THREADS) -C src/linux ARCH=$(LINUX_ARCH) \
+		KCONFIG_ALLCONFIG=$(LINUX_KCONFIG) allnoconfig
+else
 	make -j$(THREADS) -C src/linux ARCH=$(LINUX_ARCH) defconfig
+endif
 
 src/linux/vmlinux: src/linux/.config src/linux/Makefile
 	make -j$(THREADS) -C src/linux ARCH=$(LINUX_ARCH) \
