@@ -1,4 +1,4 @@
-LINUX_VER=4.11.11
+LINUX_VER=4.9.56
 LINUX_KPATH=arch/x86/boot/bzImage
 LINUX_ARCH=$(shell $(CC) -dumpmachine|sed 's/-.*//'|sed 's/i.86/i386/')
 
