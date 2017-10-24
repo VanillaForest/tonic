@@ -1,4 +1,4 @@
-MUSL_VER=1.1.16
+MUSL_VER=1.1.17
 
 sources: src/musl/Makefile
 
