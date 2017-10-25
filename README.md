@@ -38,5 +38,5 @@ For example, the upstream build system of `LVM2` deals really bad with static li
 
 ## Pack into image
 
-Currently there is an target for `make boot/tonic.cpio.xz` which will generate an initramfs from the build artifacts.
+Currently there is an target for `make boot/initrd` which will generate an initramfs from the build artifacts.
 Feel free to implement your own mechamism here or just pick the binaries manually from bin/.
